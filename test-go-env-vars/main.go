@@ -19,14 +19,14 @@ func main() {
 	done := make(chan struct{})
 
 	// Optional: Do some work in a goroutine
-    go func() {
-        for {
-            fmt.Println("Working in the background...")
-            time.Sleep(5 * time.Second)
-        }
-    }()
+	go func() {
+		for {
+			fmt.Println("Working in the background...")
+			time.Sleep(5 * time.Second)
+		}
+	}()
 
-    // Block forever
-    <-done
-    fmt.Println("This line is never reached")
+	// Block forever
+	<-done
+	fmt.Println("This line is never reached")
 }

@@ -20,3 +20,8 @@ build/image:
 .PHONY: deploy
 deploy:
 	./deploy.sh
+
+## undeploy: undeploy app from k8s
+.PHONY: undeploy
+undeploy:
+	kubectl delete deployments myapp-deployment

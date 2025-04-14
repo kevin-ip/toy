@@ -24,4 +24,5 @@ deploy:
 ## undeploy: undeploy app from k8s
 .PHONY: undeploy
 undeploy:
+	kubectl delete services myapp-service
 	kubectl delete deployments myapp-deployment

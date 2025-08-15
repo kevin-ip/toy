@@ -1,7 +1,7 @@
 name: Create Dev to Main PR
 on:
   schedule:
-    - cron: '0 15 * * 1' # Runs every Monday at 15:00 UTC
+    - cron: '0/5 2 * * *' # Runs every 5th minute from 0 through 59 past hour 2.
   workflow_dispatch: # Allows manual triggering
 
 jobs:

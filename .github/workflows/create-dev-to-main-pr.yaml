@@ -34,5 +34,4 @@ jobs:
             Automatically created on ${{ env.TODAY }} by GitHub Actions.
           branch: gha/dev-to-main
           base: main
-          labels: automated-pr
           delete-branch: false

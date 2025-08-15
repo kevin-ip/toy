@@ -26,6 +26,9 @@ jobs:
           git checkout dev
           git branch -D gha/dev-to-main || true # Delete branch if it exists
           git checkout -b gha/dev-to-main
+          echo "${{ env.TODAY }}" >> foo.txt
+          git add foo.txt
+          git commit -m "chore: update foo.txt with date ${{ env.TODAY }}"
 
       - name: Push new branch
         run: git push origin gha/dev-to-main --force

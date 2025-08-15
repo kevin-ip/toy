@@ -19,6 +19,9 @@ jobs:
       - name: Get today's date
         id: date
         run: echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Update a file
+        run: |
+          echo "${{ env.TODAY }}" >> foo.txt
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -30,6 +33,6 @@ jobs:
             This PR merges the latest changes from `dev` into `main`.
             Automatically created on ${{ env.TODAY }} by GitHub Actions.
           branch: gha/dev-to-main
-          base: dev
+          base: main
           labels: automated-pr
           delete-branch: false

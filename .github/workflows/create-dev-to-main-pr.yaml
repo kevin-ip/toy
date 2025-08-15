@@ -1,7 +1,7 @@
 name: Create Dev to Main PR
 on:
   schedule:
-    - cron: '0/5 2 * * *' # Runs every 5th minute from 0 through 59 past hour 2.
+    - cron: '0/5 * * * *' # Runs every 5 mins
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -14,17 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: dev # Checkout the dev branch
+
+      - name: Get today's date
+        id: date
+        run: echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Dev -> Main'
-          title: 'Merge dev into main'
+          commit-message: 'chore: merge dev into main'
+          title: 'Merge dev into main - ${{ env.TODAY }}'
           body: |
             This PR merges the latest changes from `dev` into `main`.
-            Automatically created by GitHub Actions.
-          branch: dev
+            Automatically created on ${{ env.TODAY }} by GitHub Actions.
+          branch: gha/dev-to-main
           base: main
           labels: automated-pr
-          delete-branch: false # Keep the dev branch
+          delete-branch: false

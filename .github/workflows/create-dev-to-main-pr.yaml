@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: dev # Checkout the dev branch
-          fetch-depth: 0 # Fetch full history for branching
 
       - name: Get today's date
         id: date
@@ -23,15 +20,8 @@ jobs:
 
       - name: Create new branch from dev
         run: |
-          git checkout dev
-          git branch -D gha/dev-to-main || true # Delete branch if it exists
-          git checkout -b gha/dev-to-main
-          echo "${{ env.TODAY }}" >> foo.txt
-          git add foo.txt
-          git commit -m "chore: update foo.txt with date ${{ env.TODAY }}"
-
-      - name: Push new branch
-        run: git push origin gha/dev-to-main --force
+          git fetch origin dev:dev
+          git reset --hard dev
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -43,5 +33,3 @@ jobs:
             This PR merges the latest changes from `dev` into `main`.
             Automatically created on ${{ env.TODAY }} by GitHub Actions.
           branch: gha/dev-to-main
-          base: main
-          delete-branch: false

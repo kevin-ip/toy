@@ -30,6 +30,6 @@ jobs:
             This PR merges the latest changes from `dev` into `main`.
             Automatically created on ${{ env.TODAY }} by GitHub Actions.
           branch: gha/dev-to-main
-          base: main
+          base: dev
           labels: automated-pr
           delete-branch: false

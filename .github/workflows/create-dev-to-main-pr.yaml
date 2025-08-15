@@ -1,0 +1,30 @@
+name: Create Dev to Main PR
+on:
+  schedule:
+    - cron: '0 15 * * 1' # Runs every Monday at 15:00 UTC
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Dev -> Main'
+          title: 'Merge dev into main'
+          body: |
+            This PR merges the latest changes from `dev` into `main`.
+            Automatically created by GitHub Actions.
+          branch: dev
+          base: main
+          labels: automated-pr
+          delete-branch: false # Keep the dev branch
